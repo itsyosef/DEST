@@ -6,7 +6,7 @@ sample=$3
 
 cd /opt
 
-mkdir out/$sample/$sample
+mkdir -p out/$sample/
 
 mkdir out/$sample/fastqc
 mkdir out/$sample/fastqc/trimmed
