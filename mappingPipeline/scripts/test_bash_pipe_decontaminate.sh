@@ -32,6 +32,10 @@ bbmerge.sh in1=out/$sample/trimmed1.fq.gz in2=out/$sample/trimmed2.fq.gz out=out
 
 rm out/$sample/trimmed*
 
+echo "Pre BWA mem"
+echo $(pwd)
+echo $(ls)
+
 bwa mem -M -R "@RG\tID:sample_name;cell;lane\tSM:sample_name\tPL:illumina\tLB:lib1" hologenome.fna out/$sample/1_un.fq.gz out/$sample/2_un.fq.gz | samtools view -Sbh -q 20 -F 0x100 - > out/$sample/merged_un.bam
 
 rm out/$sample/1_un.fq.gz
