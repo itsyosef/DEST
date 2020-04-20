@@ -84,4 +84,4 @@ samtools view out/$sample/dedup_indel.bam | grep -P "imulans\t" > processed_sim_
 
 mv out/$sample/dedup_indel.bam  out/$sample/all_processed_reads.bam
 
-python3 mpileup2sync.py --mpileup out/$sample/${sample}_duplicate_marked_mpileup.txt --ref dmel-all-chromosome-r6.12.fasta > out/$sample/output.sync
+python3 Mpileup2Sync.py --mpileup out/$sample/${sample}_duplicate_marked_mpileup.txt --ref dmel-all-chromosome-r6.12.fasta > out/$sample/output.sync
