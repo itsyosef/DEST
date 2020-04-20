@@ -6,9 +6,6 @@ sample=$3
 
 cd /opt
 
-echo $(pwd)
-echo $(ls)
-
 mkdir -p out/$sample/
 
 mkdir out/$sample/fastqc
@@ -31,10 +28,6 @@ fastqc out/$sample/trimmed1.fq.gz out/$sample/trimmed2.fq.gz -o out/$sample/fast
 bbmerge.sh in1=out/$sample/trimmed1.fq.gz in2=out/$sample/trimmed2.fq.gz out=out/$sample/merged.fq.gz outu1=out/$sample/1_un.fq.gz outu2=out/$sample/2_un.fq.gz
 
 rm out/$sample/trimmed*
-
-echo "Pre BWA mem"
-echo $(pwd)
-echo $(ls)
 
 bwa mem -M -R "@RG\tID:sample_name;cell;lane\tSM:sample_name\tPL:illumina\tLB:lib1" hologenome.fna out/$sample/1_un.fq.gz out/$sample/2_un.fq.gz | samtools view -Sbh -q 20 -F 0x100 - > out/$sample/merged_un.bam
 
