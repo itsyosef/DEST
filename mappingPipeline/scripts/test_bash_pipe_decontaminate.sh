@@ -6,6 +6,9 @@ sample=$3
 
 cd /opt
 
+echo $(pwd)
+echo $(ls)
+
 mkdir -p out/$sample/
 
 mkdir out/$sample/fastqc
