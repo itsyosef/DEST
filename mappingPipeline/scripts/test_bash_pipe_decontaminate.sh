@@ -25,7 +25,7 @@ $1 $2
 
 fastqc out/$sample/trimmed1.fq.gz out/$sample/trimmed2.fq.gz -o out/$sample/fastqc/trimmed
 
-bbmerge.sh in1=out/$sample/trimmed1.fq.gz in2=out/$sample/trimmed1.fq.gz out=out/$sample/merged.fq.gz outu1=out/$sample/1_un.fq.gz outu2=out/$sample/2_un.fq.gz
+bbmerge.sh in1=out/$sample/trimmed1.fq.gz in2=out/$sample/trimmed2.fq.gz out=out/$sample/merged.fq.gz outu1=out/$sample/1_un.fq.gz outu2=out/$sample/2_un.fq.gz
 
 rm out/$sample/trimmed*
 
