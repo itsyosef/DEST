@@ -75,8 +75,8 @@ samtools idxstats out/$sample/dedup_indel.bam > out/$sample/${sample}_duplicate_
 samtools mpileup out/$sample/dedup_indel.bam -f hologenome.fna > out/$sample/${sample}_duplicate_marked_mpileup.txt
 
 #Number of reads mapping to simulans and mel
-grep -v "imulans" out/$sample/${sample}_duplicate_marked_idxstats.txt | awk -F '\t' '{sum+=$3;} END {print sum;}' > output/$sample/num_mel.txt
-grep "imulans" out/$sample/${sample}_duplicate_marked_idxstats.txt | awk -F '\t' '{sum+=$3;} END {print sum;}' > output/$sample/num_sim.txt
+grep -v "imulans" out/$sample/${sample}_duplicate_marked_idxstats.txt | awk -F '\t' '{sum+=$3;} END {print sum;}' > out/$sample/num_mel.txt
+grep "imulans" out/$sample/${sample}_duplicate_marked_idxstats.txt | awk -F '\t' '{sum+=$3;} END {print sum;}' > out/$sample/num_sim.txt
 
 #Need to name these based on the sample
 samtools view out/$sample/dedup_indel.bam | grep -v -P "imulans\t" > out/$sample/processed_mel_reads.bam
