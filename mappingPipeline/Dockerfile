@@ -193,29 +193,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #Setup what only needs to be done once
 #Get the script
 
-#Get the D melanogaster genome
-RUN wget ftp://ftp.flybase.net/genomes/Drosophila_melanogaster/dmel_r6.12_FB2016_04/fasta/dmel-all-chromosome-r6.12.fasta.gz && \
-    gunzip dmel-all-chromosome-r6.12.fasta.gz
-
-#Get the D simulans genome
-RUN wget ftp://ftp.ensemblgenomes.org/pub/metazoa/release-46/fasta/drosophila_simulans/dna/Drosophila_simulans.ASM75419v3.dna.toplevel.fa.gz && \
-    gunzip -c Drosophila_simulans.ASM75419v3.dna.toplevel.fa.gz | sed 's/>* .*/_D_simulans/g' > Drosophila_simulans.ASM75419v3.dna.toplevel.fa && \
-    rm Drosophila_simulans.ASM75419v3.dna.toplevel.fa.gz
-
-
-#Setup the genomes for the pipeline
-RUN cat dmel-all-chromosome-r6.12.fasta Drosophila_simulans.ASM75419v3.dna.toplevel.fa > hologenome.fna && \
-    java -jar $PICARD CreateSequenceDictionary \
-    R=hologenome.fna \
-    O=hologenome.dict && \
-    samtools faidx hologenome.fna && \
-    bwa index hologenome.fna
-
-ARG CACHEBUST=8
-
 RUN git clone https://github.com/itsyosef/DEST.git
 
 ENV PATH="DEST/mappingPipeline/scripts:${PATH}"
 
-ENTRYPOINT ["/bin/bash", "test_bash_pipe_decontaminate.sh"]
-CMD ["data/*1*", "data/*2*", "default_sample"]
+#Setup the hologenome
+RUN hologene_gen.sh && \
+    bwa index /opt/hologenome/holo_dmel_6.12.fa && \
+    samtools faidx /opt/hologenome/holo_dmel_6.12.fa && \
+    java -jar $PICARD CreateSequenceDictionary \
+              R=/opt/hologenome/holo_dmel_6.12.fa \
+              O=/opt/hologenome/holo_dmel_6.12.dict
+
+
+#Command to execute on "docker run" of this image
+#ENTRYPOINT ["/bin/bash", "fq_to_sync_pipeline.sh"]
+
+#Default parameters passed to the above function call. Can be overridden by supplying parameters after image name in "docker run"
+#CMD ["input_folder/*1*", "input_folder/*2*", "default_sample", "mounted_input_folder", "mounted_output_folder"]
