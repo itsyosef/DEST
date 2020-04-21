@@ -186,23 +186,21 @@ ENV PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin:${PATH}"
 RUN apt-get update && apt-get install -y --no-install-recommends \
     vim \
     less \
-    git
+    git \
+    curl
 
-#Setup code maybe should put it in a script and check
-#Get the genome files
-#Setup what only needs to be done once
-#Get the script
-
-ARG CACHE_BREAK=2
-
+#Setup code maybe should put
 RUN git clone https://github.com/itsyosef/DEST.git
 
 ENV PATH="DEST/mappingPipeline/scripts:${PATH}"
 
+#Get the genome files
+#Setup what only needs to be done once
+#Get the script
+
 #Setup the hologenome
-RUN ls /opt/DEST/mappingPipeline/scripts/
-RUN /opt/DEST/mappingPipeline/scripts/hologene_gen.sh && \
-    bwa index /opt/hologenome/holo_dmel_6.12.fa && \
+RUN /opt/DEST/mappingPipeline/scripts/hologene_gen.sh
+RUN bwa index /opt/hologenome/holo_dmel_6.12.fa && \
     samtools faidx /opt/hologenome/holo_dmel_6.12.fa && \
     java -jar $PICARD CreateSequenceDictionary \
               R=/opt/hologenome/holo_dmel_6.12.fa \

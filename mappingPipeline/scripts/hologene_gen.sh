@@ -63,17 +63,22 @@ gunzip -c Providencia_burhodogranariea_dsm_19968.ASM31485v2.dna.toplevel.fa.gz |
 curl -O ftp://ftp.ensemblgenomes.org/pub/release-32/bacteria/fasta/bacteria_18_collection/providencia_alcalifaciens_dmel2/dna/Providencia_alcalifaciens_dmel2.ASM31487v2.dna.toplevel.fa.gz
 gunzip -c Providencia_alcalifaciens_dmel2.ASM31487v2.dna.toplevel.fa.gz | sed 's/>* .*/_P_alcalifaciens/g'  > P_alcalifaciens.fasta
 
-# Providencia rettgeri
+echo "Providencia rettgeri"
 curl -O ftp://ftp.ensemblgenomes.org/pub/release-32/bacteria/fasta/bacteria_23_collection/providencia_rettgeri_dmel1/dna/Providencia_rettgeri_dmel1.ASM31483v2.dna.toplevel.fa.gz
 gunzip -c Providencia_rettgeri_dmel1.ASM31483v2.dna.toplevel.fa.gz | sed 's/>* .*/_P_rettgeri/g'  > P_rettgeri.fasta
 
-# Enterococcus faecalis
+echo "Enterococcus faecalis"
 curl -O ftp://ftp.ensemblgenomes.org/pub/release-32/bacteria/fasta/bacteria_72_collection/enterococcus_faecalis/dna/Enterococcus_faecalis.ASM69626v1.dna.toplevel.fa.gz
 gunzip -c Enterococcus_faecalis.ASM69626v1.dna.toplevel.fa.gz | sed 's/>* .*//g'  > E_faecalis.fasta
 
 
 ## remove raw gzipped files
+echo "removing raw gzip"
+echo $(ls)
+
 rm *.gz
+
+ls
 
 gzip *
 
