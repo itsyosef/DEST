@@ -76,8 +76,6 @@ gunzip -c Enterococcus_faecalis.ASM69626v1.dna.toplevel.fa.gz | sed 's/>* .*//g'
 
 rm *gz
 
-ls
-
 # gzip *
 #
 #

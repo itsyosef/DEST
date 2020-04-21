@@ -3,11 +3,8 @@
 read1=$1
 read2=$2
 sample=$3
-input=$4
-output=$5
+output=$4
 
-cd /opt
-cd $4
 cd /opt
 cd $5
 cd /opt
@@ -16,7 +13,7 @@ mkdir -p $output/$sample/
 
 mkdir $output/$sample/fastqc
 mkdir $output/$sample/fastqc/trimmed
-fastqc $intput/$read1 $intput/$read2 -o $output/$sample/fastqc
+fastqc $read1 $read2 -o $output/$sample/fastqc
 
 cutadapt \
 -q 18 \
@@ -27,7 +24,7 @@ cutadapt \
 -B CAAGCAGAAGACGGCATACGAGAT \
 -O 15 \
 -n 3 \
-$intput/$read1 $intput/$read2
+$read1 $read2
 
 fastqc $output/$sample/trimmed1.fq.gz $output/$sample/trimmed2.fq.gz -o $output/$sample/fastqc/trimmed
 
