@@ -193,12 +193,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #Setup what only needs to be done once
 #Get the script
 
+ARG CACHE_BREAK=1
+
 RUN git clone https://github.com/itsyosef/DEST.git
 
 ENV PATH="DEST/mappingPipeline/scripts:${PATH}"
 
 #Setup the hologenome
-RUN hologene_gen.sh && \
+RUN ls /opt/DEST/mappingPipeline/scripts/
+RUN /opt/DEST/mappingPipeline/scripts/hologene_gen.sh && \
     bwa index /opt/hologenome/holo_dmel_6.12.fa && \
     samtools faidx /opt/hologenome/holo_dmel_6.12.fa && \
     java -jar $PICARD CreateSequenceDictionary \

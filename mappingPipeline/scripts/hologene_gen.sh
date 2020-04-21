@@ -12,7 +12,7 @@
 # unzip file (the fasta-file contains all chromosomes)
 # clean-up header a bit to improve readability
 
-mkdir /opt/hologenome/raw
+mkdir -r /opt/hologenome/raw
 cd /opt/hologenome/raw
 simulans=/opt/DEST/mappingPipeline/D_simulans.fasta.gz
 
