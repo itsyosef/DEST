@@ -78,20 +78,20 @@ rm $output/$sample/dedup.bam*
 # grep "sim_" $output/$sample/${sample}_original_idxstats.txt | awk -F '\t' '{sum+=$3;} END {print sum;}' > $output/$sample/num_sim.txt
 
 #Filter out the simulans contaminants
-chromosomes="2L 2R 3L 3R X 4 Y mitochondrion_genome \
-             sim_2L sim_2R sim_3L sim_3R sim_X sim_4 sim_mtDNA"
+mel_chromosomes="2L 2R 3L 3R 4 X Y mitochondrion_genome"
+sim_chromosomes="sim_2L sim_2R sim_3L sim_3R sim_4 sim_X sim_mtDNA"
 
-##NEED to do samtools view mapped.bam $chromosomes > detect.sam and then run the fix_bam.py
-samtools view $output/$sample/contaminated_realigned.bam $chromosomes > $output/$sample/mel_and_sim.sam
+samtools view $output/$sample/contaminated_realigned.bam $mel_chromosomes -b > $output/$sample/mel.bam
+samtools view $output/$sample/contaminated_realigned.bam $sim_chromosomes -b > $output/$sample/sim.bam
 
-python /opt/DEST/mappingPipeline/scripts/fix_bam.py --contaminated $output/$sample/contaminated_realigned.bam --detect $output/$sample/mel_and_sim.sam --prefix sim_ --output $output/$sample/filtered
+# python /opt/DEST/mappingPipeline/scripts/fix_bam.py --contaminated $output/$sample/contaminated_realigned.bam --detect $output/$sample/mel_and_sim.sam --prefix sim_ --output $output/$sample/filtered
 
-mv $output/$sample/contaminated_realigned.bam  $output/$sample/all_processed_reads.bam
+mv $output/$sample/contaminated_realigned.bam  $output/$sample/original.bam
 
-samtools idxstats $output/$sample/filtered-mel.bam > $output/$sample/${sample}_mel_idxstats.txt
-samtools mpileup $output/$sample/filtered-mel.bam -f /opt/hologenome/raw/D_melanogaster_r6.12.fasta > $output/$sample/${sample}_mel_mpileup.txt
+samtools idxstats $output/$sample/mel.bam > $output/$sample/mel_idxstats.txt
+samtools mpileup $output/$sample/mel.bam -f /opt/hologenome/raw/D_melanogaster_r6.12.fasta > $output/$sample/mel_mpileup.txt
 
-python3 /opt/DEST/mappingPipeline/scripts/Mpileup2Sync.py --mpileup $output/$sample/${sample}_mel_mpileup.txt --ref /opt/hologenome/raw/D_melanogaster_r6.12.fasta > $output/$sample/genomewide.sync
+python3 /opt/DEST/mappingPipeline/scripts/Mpileup2Sync.py --mpileup $output/$sample/mel_mpileup.txt --ref /opt/hologenome/raw/D_melanogaster_r6.12.fasta > $output/$sample/genomewide.sync
 
 for contig in {2L,2R,3L,3R,4,X,Y,mitochondrion_genome}; do
     python /opt/DEST/PoolSNP4Sync/max-cov.py --sync $output/$sample/genomewide.sync --contig $contig --cutoff 0.95 --out $output/$sample/data_${contig}.cov

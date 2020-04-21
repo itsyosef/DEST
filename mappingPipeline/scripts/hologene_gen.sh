@@ -21,11 +21,11 @@ curl -O ftp://ftp.flybase.net/genomes/Drosophila_melanogaster/dmel_r6.12_FB2016_
 gunzip -c dmel-all-chromosome-r6.12.fasta.gz | sed 's/ type=.*//g'> D_melanogaster_r6.12.fasta
 
 ##D simulans
-mv $simulans /opt/hologenome/raw
+cp $simulans /opt/hologenome/raw
 gunzip D_simulans.fasta.gz
 
 ## S. cerevisiae
-curl - Ohttp://sgd-archive.yeastgenome.org/sequence/S288C_reference/genome_releases/S288C_reference_genome_R64-2-1_20150113.tgz
+curl -O http://sgd-archive.yeastgenome.org/sequence/S288C_reference/genome_releases/S288C_reference_genome_R64-2-1_20150113.tgz
 tar -xvzf S288C_reference_genome_R64-2-1_20150113.tgz
 cat S288C_reference_genome_R64-2-1_20150113/S288C_reference_sequence_R64-2-1_20150113.fsa | sed 's/^>.*\[chromosome=/>Saccharomyces_cerevisiae_/g' | sed 's/]//g' > S_cerevisiae.fasta
 rm -r S288C_reference_genome_R64-2-1_20150113

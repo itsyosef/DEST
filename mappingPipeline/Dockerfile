@@ -191,7 +191,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 #Clone the repo
 
-ARG nonsense=1
+ARG nonsense=2
 
 RUN git clone https://github.com/itsyosef/DEST.git
 ENV PATH="DEST/mappingPipeline/scripts:${PATH}"
@@ -206,7 +206,7 @@ RUN bwa index /opt/hologenome/holo_dmel_6.12.fa && \
 
 
 #Command to execute on "docker run" of this image
-#ENTRYPOINT ["/bin/bash", "fq_to_sync_pipeline.sh"]
+ENTRYPOINT ["/bin/bash", "fq_to_sync_pipeline.sh"]
 
 #Default parameters passed to the above function call. Can be overridden by supplying parameters after image name in "docker run"
-#CMD ["input_folder/*1*", "input_folder/*2*", "default_sample", "mounted_input_folder", "mounted_output_folder"]
+CMD ["mounted_input_folder/*1*", "mounted_input_folder/*2*", "default_sample", "mounted_output_folder"]

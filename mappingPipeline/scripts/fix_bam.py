@@ -26,7 +26,7 @@ parser.add_option_group(group)
 
 ## read ID's from the SAM file
 mel,sim=defaultdict(str),defaultdict(str)
-samfile=pysam.Samfile(options.det,"rb")
+samfile=pysam.Samfile(options.det,"r")
 prefix=options.prefix
 c=1
 for l in samfile.fetch(until_eof=True):
