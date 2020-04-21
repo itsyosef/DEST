@@ -189,14 +189,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     curl
 
-#Setup code maybe should put
+#Clone the repo
+
+ARG nonsense=1
+
 RUN git clone https://github.com/itsyosef/DEST.git
-
 ENV PATH="DEST/mappingPipeline/scripts:${PATH}"
-
-#Get the genome files
-#Setup what only needs to be done once
-#Get the script
 
 #Setup the hologenome
 RUN /opt/DEST/mappingPipeline/scripts/hologene_gen.sh

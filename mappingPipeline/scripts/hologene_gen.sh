@@ -25,7 +25,7 @@ mv $simulans /opt/hologenome/raw
 gunzip D_simulans.fasta.gz
 
 ## S. cerevisiae
-curl -O http://downloads.yeastgenome.org/sequence/S288C_reference/genome_releases/S288C_reference_genome_R64-2-1_20150113.tgz
+curl - Ohttp://sgd-archive.yeastgenome.org/sequence/S288C_reference/genome_releases/S288C_reference_genome_R64-2-1_20150113.tgz
 tar -xvzf S288C_reference_genome_R64-2-1_20150113.tgz
 cat S288C_reference_genome_R64-2-1_20150113/S288C_reference_sequence_R64-2-1_20150113.fsa | sed 's/^>.*\[chromosome=/>Saccharomyces_cerevisiae_/g' | sed 's/]//g' > S_cerevisiae.fasta
 rm -r S288C_reference_genome_R64-2-1_20150113
@@ -63,26 +63,24 @@ gunzip -c Providencia_burhodogranariea_dsm_19968.ASM31485v2.dna.toplevel.fa.gz |
 curl -O ftp://ftp.ensemblgenomes.org/pub/release-32/bacteria/fasta/bacteria_18_collection/providencia_alcalifaciens_dmel2/dna/Providencia_alcalifaciens_dmel2.ASM31487v2.dna.toplevel.fa.gz
 gunzip -c Providencia_alcalifaciens_dmel2.ASM31487v2.dna.toplevel.fa.gz | sed 's/>* .*/_P_alcalifaciens/g'  > P_alcalifaciens.fasta
 
-echo "Providencia rettgeri"
+# "Providencia rettgeri"
 curl -O ftp://ftp.ensemblgenomes.org/pub/release-32/bacteria/fasta/bacteria_23_collection/providencia_rettgeri_dmel1/dna/Providencia_rettgeri_dmel1.ASM31483v2.dna.toplevel.fa.gz
 gunzip -c Providencia_rettgeri_dmel1.ASM31483v2.dna.toplevel.fa.gz | sed 's/>* .*/_P_rettgeri/g'  > P_rettgeri.fasta
 
-echo "Enterococcus faecalis"
+# "Enterococcus faecalis"
 curl -O ftp://ftp.ensemblgenomes.org/pub/release-32/bacteria/fasta/bacteria_72_collection/enterococcus_faecalis/dna/Enterococcus_faecalis.ASM69626v1.dna.toplevel.fa.gz
 gunzip -c Enterococcus_faecalis.ASM69626v1.dna.toplevel.fa.gz | sed 's/>* .*//g'  > E_faecalis.fasta
 
 
 ## remove raw gzipped files
-echo "removing raw gzip"
-echo $(ls)
 
-rm *.gz
+rm *gz
 
 ls
 
-gzip *
-
-
+# gzip *
+#
+#
 ##### create D. melanogaster "hologenome" from individual species fasta files
 # cat /opt/hologenome/raw/D_melanogaster_r6.12.fasta /opt/hologenome/raw/S_cerevisiae.fasta /opt/hologenome/raw/A_pomorum.fasta /opt/hologenome/raw/C_intestini.fasta /opt/hologenome/raw/C_morbifer.fasta /opt/hologenome/raw/E_faecalis.fasta /opt/hologenome/raw/P_alcalifaciens.fasta /opt/hologenome/raw/P_burhodogranariea.fasta /opt/hologenome/raw/P_entomophila.fasta /opt/hologenome/raw/P_rettgeri.fasta /opt/hologenome/raw/W_pipientis.fasta | gzip > ../holo_dmel_6.12.fa.gz
 cat /opt/hologenome/raw/D_melanogaster_r6.12.fasta /opt/hologenome/raw/D_simulans.fasta /opt/hologenome/raw/S_cerevisiae.fasta /opt/hologenome/raw/A_pomorum.fasta /opt/hologenome/raw/C_intestini.fasta /opt/hologenome/raw/C_morbifer.fasta /opt/hologenome/raw/E_faecalis.fasta /opt/hologenome/raw/P_alcalifaciens.fasta /opt/hologenome/raw/P_burhodogranariea.fasta /opt/hologenome/raw/P_entomophila.fasta /opt/hologenome/raw/P_rettgeri.fasta /opt/hologenome/raw/W_pipientis.fasta > ../holo_dmel_6.12.fa
