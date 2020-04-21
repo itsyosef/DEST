@@ -193,7 +193,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #Setup what only needs to be done once
 #Get the script
 
-ARG CACHE_BREAK=1
+ARG CACHE_BREAK=2
 
 RUN git clone https://github.com/itsyosef/DEST.git
 
