@@ -191,8 +191,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git
 
-ARG CACHE_BREAK=1
-
 #Clone the repo
 RUN git clone https://github.com/itsyosef/DEST.git
 ENV PATH="DEST/mappingPipeline/scripts:${PATH}"
