@@ -186,13 +186,14 @@ ENV PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin:${PATH}"
 RUN apt-get update && apt-get install -y --no-install-recommends \
     vim \
     less \
-    git \
     curl
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git
+
+ARG CACHE_BREAK=1
+
 #Clone the repo
-
-ARG nonsense=2
-
 RUN git clone https://github.com/itsyosef/DEST.git
 ENV PATH="DEST/mappingPipeline/scripts:${PATH}"
 
