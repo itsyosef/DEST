@@ -22,7 +22,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libbz2-dev \
         liblzma-dev \
         zlib1g-dev \
-        bash-completion
+        bash-completion \
+        vim \
+        less \
+        curl \
+        git
 
 # install Python
 RUN apt-get install -y --no-install-recommends \
@@ -181,15 +185,6 @@ ENV CLASSPATH="/opt/gatk/GenomeAnalysisTK.jar:$CLASSPATH"
 ENV GATK="/opt/gatk/GenomeAnalysisTK.jar"
 
 ENV PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin:${PATH}"
-
-#Move this
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    vim \
-    less \
-    curl
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    git
 
 #Clone the repo
 RUN git clone https://github.com/itsyosef/DEST.git
