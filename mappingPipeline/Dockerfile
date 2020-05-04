@@ -188,11 +188,12 @@ ENV PATH="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin:${PATH}"
 
 #Clone the repo
 RUN git clone https://github.com/itsyosef/DEST.git
-ENV PATH="DEST/mappingPipeline/scripts:${PATH}"
+ENV PATH="/opt/DEST/mappingPipeline/scripts:${PATH}"
 
 #Setup the hologenome
 RUN /opt/DEST/mappingPipeline/scripts/hologene_gen.sh
 RUN bwa index /opt/hologenome/holo_dmel_6.12.fa && \
+    samtools faidx /opt/hologenome/raw/D_melanogaster_r6.12.fasta && \
     samtools faidx /opt/hologenome/holo_dmel_6.12.fa && \
     java -jar $PICARD CreateSequenceDictionary \
               R=/opt/hologenome/holo_dmel_6.12.fa \
@@ -200,7 +201,7 @@ RUN bwa index /opt/hologenome/holo_dmel_6.12.fa && \
 
 
 #Command to execute on "docker run" of this image
-ENTRYPOINT ["/bin/bash", "fq_to_sync_pipeline.sh"]
+ENTRYPOINT ["/bin/bash", "/opt/DEST/mappingPipeline/scripts/fq_to_sync_pipeline.sh"]
 
 #Default parameters passed to the above function call. Can be overridden by supplying parameters after image name in "docker run"
 CMD ["mounted_input_folder/*1*", "mounted_input_folder/*2*", "default_sample", "mounted_output_folder"]
